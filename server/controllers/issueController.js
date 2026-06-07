@@ -1,0 +1,41 @@
+const Issue = require("../models/Issue");
+
+exports.createIssue = async (req,res) => {
+    try{
+        const{
+            title,
+            description,
+            category,
+            location,
+        } = req.body
+
+        if(!title || !description || !category || !location){
+            return res.status(400).json({
+                success:false,
+                message:"All fields are required",
+            });
+        }
+
+        const issue = await Issue.create({
+            title,
+            description,
+            category,
+            location,
+            reportedBy: req.user._id,
+        });
+
+        res.status(201).json({
+            success:true,
+            message:"Issue reported successfully",
+            issue,
+        });
+
+    }catch(error){
+
+        res.status(500).json({
+            success:false,
+            message:error.message
+        });
+
+    }
+};
