@@ -60,3 +60,29 @@ exports.getMyIssues = async (req,res) => {
 
     }
 };
+
+exports.getIssueById = async (req,res) =>{
+    try{
+        const issue = await Issue.findById(req.params.id);
+
+        if(!issue){
+            return res.status(404).json({
+                success:false,
+                message:"Issue not found"
+
+            });
+        }
+
+        res.status(200).json({
+            success:true,
+            issue,
+        });
+
+    }catch(error){
+        res.status(500).json({
+            success:false,
+            message:error.message,
+        });
+
+    }
+};
