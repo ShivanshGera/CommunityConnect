@@ -138,3 +138,47 @@ exports.updateIssue = async (req,res) => {
     }
 };
 
+exports.deleteIssue = async (req, res) => {
+  try {
+    const issue = await Issue.findById(req.params.id);
+
+    if (!issue) {
+      return res.status(404).json({
+        success: false,
+        message: "Issue not found",
+      });
+    }
+
+    // Check ownership
+    if (issue.reportedBy.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: "You can only delete your own issues",
+      });
+    }
+
+    // Check status
+    if (issue.status !== "Pending") {
+      return res.status(400).json({
+        success: false,
+        message: "Only pending issues can be deleted",
+      });
+    }
+
+    await Issue.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+      success: true,
+      message: "Issue deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
+
+

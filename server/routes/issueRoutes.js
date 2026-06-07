@@ -9,6 +9,7 @@ const {
   getMyIssues,
   getIssueById,
   updateIssue,
+  deleteIssue,
 } = require("../controllers/issueController");
 
 router.post(
@@ -19,6 +20,7 @@ router.post(
 
 router.get("/my",authMiddleware,getMyIssues);
 router.get("/:id",authMiddleware,getIssueById);
-router.put("/:id",authMiddleware,updateIssue)
+router.put("/:id",authMiddleware,updateIssue);
+router.delete("/:id",authMiddleware,deleteIssue);
 
 module.exports = router;
