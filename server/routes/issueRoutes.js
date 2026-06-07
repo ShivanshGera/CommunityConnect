@@ -7,7 +7,8 @@ const authMiddleware = require("../middleware/authMiddleware");
 const {
   createIssue,
   getMyIssues,
-  getIssueById
+  getIssueById,
+  updateIssue,
 } = require("../controllers/issueController");
 
 router.post(
@@ -18,5 +19,6 @@ router.post(
 
 router.get("/my",authMiddleware,getMyIssues);
 router.get("/:id",authMiddleware,getIssueById);
+router.put("/:id",authMiddleware,updateIssue)
 
 module.exports = router;
