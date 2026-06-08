@@ -22,3 +22,51 @@ exports.getAllIssues = async (req,res) => {
     }
 };
 
+exports.updateIssueStatus = async (req,res) => {
+    try{
+        const {status} = req.body;
+
+        //validate status
+        const allowedStatus = [
+            "Pending",
+            "In Progress",
+            "Resolved",
+        ];
+
+        if(!allowedStatus.includes(status)){
+            return res.status(400).json({
+                success:false,
+                message:"Invalid status",
+            });
+        }
+
+        const issue = await Issue.findById(req.params.id);
+
+        if(!issue){
+            return res.status(404).json({
+                success:false,
+                message:"Issue not found",
+            });
+        }
+
+        issue.status = status;
+
+        await issue.save();
+
+        res.status(200).json({
+            success:true,
+            message:"Issue status updated succesfully",
+            issue,
+
+        });
+    }catch(error){
+        res.status(500).json({
+            success:false,
+            message:error.message,
+        });
+        
+    }
+};
+
+
+

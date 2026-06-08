@@ -10,6 +10,7 @@ const {
 
 const {
   getAllIssues,
+  updateIssueStatus
 } = require("../controllers/adminController");
 
 router.get(
@@ -18,5 +19,7 @@ router.get(
   isAdmin,
   getAllIssues
 );
+
+router.patch("/issues/:id/status",authMiddleware,isAdmin,updateIssueStatus);
 
 module.exports = router;
