@@ -1,25 +1,45 @@
 const Issue = require("../models/Issue");
 
-exports.getAllIssues = async (req,res) => {
-    try{
+exports.getAllIssues = async (req, res) => {
+  try {
+    const { search, status, category } = req.query;
 
-        const issues = await Issue.find()
-           .populate("reportedBy", "name email")
-           .sort({createdAt: -1});
+    let query = {};
 
-        res.status(200).json({
-            success:true,
-            count:issues.length,
-            issues,
-        });
-
-    }catch(error){
-        res.status(500).json({
-            success:false,
-            message:error.message,
-        });
-
+    // Search by title
+    if (search) {
+      query.title = {
+        $regex: search,
+        $options: "i",
+      };
     }
+
+    // Filter by status
+    if (status) {
+      query.status = status;
+    }
+
+    // Filter by category
+    if (category) {
+      query.category = category;
+    }
+
+    const issues = await Issue.find(query)
+      .populate("reportedBy", "name email")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      count: issues.length,
+      issues,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
 exports.updateIssueStatus = async (req,res) => {
