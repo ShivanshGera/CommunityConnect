@@ -10,7 +10,8 @@ const {
 
 const {
   getAllIssues,
-  updateIssueStatus
+  updateIssueStatus,
+  getDashboardStats,
 } = require("../controllers/adminController");
 
 router.get(
@@ -21,5 +22,6 @@ router.get(
 );
 
 router.patch("/issues/:id/status",authMiddleware,isAdmin,updateIssueStatus);
+router.get("/dashboard",authMiddleware,isAdmin,getDashboardStats);
 
 module.exports = router;
