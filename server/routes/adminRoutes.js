@@ -12,6 +12,7 @@ const {
   getAllIssues,
   updateIssueStatus,
   getDashboardStats,
+  deleteIssueByAdmin
 } = require("../controllers/adminController");
 
 router.get(
@@ -23,5 +24,6 @@ router.get(
 
 router.patch("/issues/:id/status",authMiddleware,isAdmin,updateIssueStatus);
 router.get("/dashboard",authMiddleware,isAdmin,getDashboardStats);
+router.delete("/issues/:id",authMiddleware,isAdmin,deleteIssueByAdmin);
 
 module.exports = router;

@@ -105,5 +105,33 @@ exports.getDashboardStats = async (req,res) => {
     }
 };
 
+exports.deleteIssueByAdmin = async (req,res) => {
+    try{
+        const issue = await Issue.findById(req.params.id);
+
+        if(!issue){
+            res.status(404).json({
+                success:false,
+                message:"Issue not found"
+            });
+        }
+
+        await Issue.findByIdAndDelete(req.params.id);
+
+        res.status(200).json({
+            success:true,
+            message:"Issue deleted successfully",
+        });
+
+    }catch(error){
+
+        res.status(500).json({
+            success:false,
+            message:error.message,
+        });
+
+    }
+};
+
 
 
