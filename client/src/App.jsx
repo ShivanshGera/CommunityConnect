@@ -7,6 +7,7 @@ import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
+import ReportIssue from "./pages/ReportIssue";
 
 
 function App() {
@@ -24,6 +25,14 @@ function App() {
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/report-issue"
+        element={
+          <ProtectedRoute>
+            <ReportIssue/>
           </ProtectedRoute>
         }
       />

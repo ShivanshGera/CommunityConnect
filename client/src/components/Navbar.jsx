@@ -40,6 +40,11 @@ function Navbar() {
                 Dashboard
               </Link>
 
+              <Link to="report-issue">
+                Report Issue
+              
+              </Link>
+
               <button
                 onClick={handleLogout}
                 className="bg-red-500 px-3 py-1 rounded"
