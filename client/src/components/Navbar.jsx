@@ -45,6 +45,11 @@ function Navbar() {
               
               </Link>
 
+              <Link to="/my-issues">
+                My Issues
+              
+              </Link>
+
               <button
                 onClick={handleLogout}
                 className="bg-red-500 px-3 py-1 rounded"

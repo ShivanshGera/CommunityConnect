@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import ReportIssue from "./pages/ReportIssue";
+import MyIssues from "./pages/MyIssues";
 
 
 function App() {
@@ -33,6 +34,14 @@ function App() {
         element={
           <ProtectedRoute>
             <ReportIssue/>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my-issues"
+        element={
+          <ProtectedRoute>
+            <MyIssues/>
           </ProtectedRoute>
         }
       />
