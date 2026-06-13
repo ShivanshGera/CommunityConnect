@@ -49,11 +49,16 @@ function Navbar() {
               </Link>
 
               {user?.role === "admin" && (
-                <Link to="/admin-dashboard">
-                  Admin Dashboard
-                </Link>
-              )}
+                <>
+                  <Link to="/admin-dashboard">
+                    Admin Dashboard
+                  </Link>
 
+                  <Link to="/all-issues">
+                    All Issues
+                  </Link>
+                </>
+              )}
               <button
                 onClick={handleLogout}
                 className="bg-red-500 px-3 py-1 rounded"
