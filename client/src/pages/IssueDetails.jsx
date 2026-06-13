@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
@@ -7,6 +7,8 @@ import StatusBadge from "../components/StatusBadge";
 
 function IssueDetails() {
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const { token } = useAuth();
 
@@ -31,6 +33,35 @@ function IssueDetails() {
 
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this issue?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      const response = await api.delete(
+        `/issues/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      alert(response.data.message);
+
+      navigate("/my-issues");
+
+    } catch (error) {
+      alert(
+        error.response?.data?.message ||
+        "Failed to delete issue"
+      );
     }
   };
 
@@ -84,6 +115,17 @@ function IssueDetails() {
           alt={issue.title}
           className="w-full max-w-lg mt-6 rounded-lg shadow"
         />
+      )}
+
+      {issue.status === "Pending" && (
+        <div className="mt-6">
+          <button
+            onClick={handleDelete}
+            className="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700"
+          >
+            Delete Issue
+          </button>
+        </div>
       )}
 
     </div>
