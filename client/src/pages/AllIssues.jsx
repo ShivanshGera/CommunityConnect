@@ -40,6 +40,67 @@ function AllIssues() {
     }
   };
 
+  const updateStatus = async (
+    issueId,
+    newStatus
+  ) => {
+    try {
+      const response = await api.patch(
+        `/admin/issues/${issueId}/status`,
+        {
+          status: newStatus,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      alert(response.data.message);
+
+      fetchIssues();
+
+    } catch (error) {
+      alert(
+        error.response?.data?.message ||
+        "Failed to update status"
+      );
+    }
+  };
+
+  const handleDelete = async (
+    issueId
+  ) => {
+    const confirmDelete =
+      window.confirm(
+        "Delete this issue?"
+      );
+
+    if (!confirmDelete) return;
+
+    try {
+      const response = await api.delete(
+        `/admin/issues/${issueId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      alert(response.data.message);
+
+      fetchIssues();
+
+    } catch (error) {
+      alert(
+        error.response?.data?.message ||
+        "Failed to delete issue"
+      );
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto p-6">
 
@@ -167,6 +228,43 @@ function AllIssues() {
               <StatusBadge
                 status={issue.status}
               />
+            </div>
+
+            <div className="mt-4 flex gap-3 items-center">
+
+              <select
+                defaultValue={issue.status}
+                onChange={(e) =>
+                  updateStatus(
+                    issue._id,
+                    e.target.value
+                  )
+                }
+                className="border p-2 rounded"
+              >
+                <option value="Pending">
+                  Pending
+                </option>
+
+                <option value="In Progress">
+                  In Progress
+                </option>
+
+                <option value="Resolved">
+                  Resolved
+                </option>
+
+              </select>
+
+              <button
+                onClick={() =>
+                  handleDelete(issue._id)
+                }
+                className="bg-red-600 text-white px-4 py-2 rounded"
+              >
+                Delete
+              </button>
+
             </div>
 
             {issue.image && (
