@@ -71,75 +71,128 @@ function IssueDetails() {
 
   if (!issue) {
     return (
-      <div className="p-10 text-center">
+      <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center">
         Loading...
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="min-h-screen bg-slate-950 text-white">
 
-      <h1 className="text-4xl font-bold">
-        {issue.title}
-      </h1>
+      <div className="max-w-5xl mx-auto px-6 py-10">
 
-      <div className="mt-4">
-        <StatusBadge status={issue.status} />
-      </div>
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
 
-      <p className="mt-6 text-lg">
-        {issue.description}
-      </p>
+          {issue.image && (
+            <img
+              src={issue.image}
+              alt={issue.title}
+              className="w-full h-[400px] object-cover"
+            />
+          )}
 
-      <div className="mt-6 space-y-2">
+          <div className="p-8">
 
-        <p>
-          <strong>Category:</strong>{" "}
-          {issue.category}
-        </p>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
-        <p>
-          <strong>Location:</strong>{" "}
-          {issue.location}
-        </p>
+              <h1 className="text-4xl font-bold">
+                {issue.title}
+              </h1>
 
-        <p>
-          <strong>Reported On:</strong>{" "}
-          {new Date(
-            issue.createdAt
-          ).toLocaleDateString()}
-        </p>
+              <StatusBadge
+                status={issue.status}
+              />
 
-      </div>
+            </div>
 
-      {issue.image && (
-        <img
-          src={issue.image}
-          alt={issue.title}
-          className="w-full max-w-lg mt-6 rounded-lg shadow"
-        />
-      )}
+            <p className="mt-8 text-slate-300 leading-8 text-lg">
+              {issue.description}
+            </p>
 
-      {issue.status === "Pending" && (
-        <div className="mt-6 flex gap-4">
+            <div className="grid md:grid-cols-3 gap-6 mt-10">
 
-          <Link
-            to={`/edit-issue/${issue._id}`}
-            className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700"
-          >
-            Edit Issue
-          </Link>
+              <div className="bg-slate-950 border border-slate-800 rounded-xl p-5">
 
-          <button
-            onClick={handleDelete}
-            className="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700"
-          >
-            Delete Issue
-          </button>
+                <p className="text-slate-500 text-sm">
+                  Category
+                </p>
+
+                <p className="mt-2 font-semibold">
+                  {issue.category}
+                </p>
+
+              </div>
+
+              <div className="bg-slate-950 border border-slate-800 rounded-xl p-5">
+
+                <p className="text-slate-500 text-sm">
+                  Location
+                </p>
+
+                <p className="mt-2 font-semibold">
+                  {issue.location}
+                </p>
+
+              </div>
+
+              <div className="bg-slate-950 border border-slate-800 rounded-xl p-5">
+
+                <p className="text-slate-500 text-sm">
+                  Reported On
+                </p>
+
+                <p className="mt-2 font-semibold">
+                  {new Date(
+                    issue.createdAt
+                  ).toLocaleDateString()}
+                </p>
+
+              </div>
+
+            </div>
+
+            {issue.status === "Pending" && (
+              <div className="mt-10 flex flex-wrap gap-4">
+
+                <Link
+                  to={`/edit-issue/${issue._id}`}
+                  className="
+                  bg-indigo-600
+                  hover:bg-indigo-700
+                  px-6
+                  py-3
+                  rounded-xl
+                  font-medium
+                  transition
+                "
+                >
+                  Edit Issue
+                </Link>
+
+                <button
+                  onClick={handleDelete}
+                  className="
+                  bg-red-600
+                  hover:bg-red-700
+                  px-6
+                  py-3
+                  rounded-xl
+                  font-medium
+                  transition
+                "
+                >
+                  Delete Issue
+                </button>
+
+              </div>
+            )}
+
+          </div>
 
         </div>
-      )}
+
+      </div>
 
     </div>
   );
