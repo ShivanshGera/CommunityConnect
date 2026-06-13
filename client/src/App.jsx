@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import ReportIssue from "./pages/ReportIssue";
 import MyIssues from "./pages/MyIssues";
 import IssueDetails from "./pages/IssueDetails";
+import EditIssue from "./pages/EditIssue";
 
 
 function App() {
@@ -51,6 +52,14 @@ function App() {
         element={
           <ProtectedRoute>
             <IssueDetails/>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/edit-issue/:id"
+        element={
+          <ProtectedRoute>
+            <EditIssue/>
           </ProtectedRoute>
         }
       />

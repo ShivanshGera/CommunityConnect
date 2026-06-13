@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import {
+  useParams,
+  useNavigate,
+  Link,
+} from "react-router-dom";
 
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
@@ -118,13 +122,22 @@ function IssueDetails() {
       )}
 
       {issue.status === "Pending" && (
-        <div className="mt-6">
+        <div className="mt-6 flex gap-4">
+
+          <Link
+            to={`/edit-issue/${issue._id}`}
+            className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700"
+          >
+            Edit Issue
+          </Link>
+
           <button
             onClick={handleDelete}
             className="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700"
           >
             Delete Issue
           </button>
+
         </div>
       )}
 
