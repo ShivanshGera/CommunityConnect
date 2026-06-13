@@ -31,19 +31,45 @@ function MyIssues() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">
-        My Issues
-      </h1>
+    <div className="min-h-screen bg-slate-950 text-white">
 
-      <div className="grid gap-4">
-        {issues.map((issue) => (
-          <IssueCard
-            key={issue._id}
-            issue={issue}
-          />
-        ))}
+      <div className="max-w-7xl mx-auto px-6 py-10">
+
+        <h1 className="text-4xl font-bold mb-2">
+          My Issues
+        </h1>
+
+        <p className="text-slate-400 mb-8">
+          View and manage all issues reported by you.
+        </p>
+
+        {issues.length === 0 ? (
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-10 text-center">
+
+            <h2 className="text-2xl font-semibold">
+              No Issues Found
+            </h2>
+
+            <p className="text-slate-400 mt-3">
+              Start by reporting your first issue.
+            </p>
+
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+            {issues.map((issue) => (
+              <IssueCard
+                key={issue._id}
+                issue={issue}
+              />
+            ))}
+
+          </div>
+        )}
+
       </div>
+
     </div>
   );
 }
