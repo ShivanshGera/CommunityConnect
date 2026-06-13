@@ -40,13 +40,17 @@ function Navbar() {
                 Dashboard
               </Link>
 
-              <Link to="/report-issue">
-                Report Issue
-              </Link>
+              {user?.role === "citizen" && (
+                <>
+                  <Link to="/report-issue">
+                    Report Issue
+                  </Link>
 
-              <Link to="/my-issues">
-                My Issues
-              </Link>
+                  <Link to="/my-issues">
+                    My Issues
+                  </Link>
+                </>
+              )}
 
               {user?.role === "admin" && (
                 <>
@@ -59,6 +63,7 @@ function Navbar() {
                   </Link>
                 </>
               )}
+
               <button
                 onClick={handleLogout}
                 className="bg-red-500 px-3 py-1 rounded"
