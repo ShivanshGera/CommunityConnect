@@ -40,15 +40,19 @@ function Navbar() {
                 Dashboard
               </Link>
 
-              <Link to="report-issue">
+              <Link to="/report-issue">
                 Report Issue
-              
               </Link>
 
               <Link to="/my-issues">
                 My Issues
-              
               </Link>
+
+              {user?.role === "admin" && (
+                <Link to="/admin-dashboard">
+                  Admin Dashboard
+                </Link>
+              )}
 
               <button
                 onClick={handleLogout}

@@ -11,6 +11,7 @@ import ReportIssue from "./pages/ReportIssue";
 import MyIssues from "./pages/MyIssues";
 import IssueDetails from "./pages/IssueDetails";
 import EditIssue from "./pages/EditIssue";
+import AdminDashboard from "./pages/AdminDashboard";
 
 
 function App() {
@@ -60,6 +61,14 @@ function App() {
         element={
           <ProtectedRoute>
             <EditIssue/>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin-dashboard"
+        element={
+          <ProtectedRoute>
+           <AdminDashboard />
           </ProtectedRoute>
         }
       />
