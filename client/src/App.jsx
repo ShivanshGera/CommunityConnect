@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import ReportIssue from "./pages/ReportIssue";
 import MyIssues from "./pages/MyIssues";
+import IssueDetails from "./pages/IssueDetails";
 
 
 function App() {
@@ -42,6 +43,14 @@ function App() {
         element={
           <ProtectedRoute>
             <MyIssues/>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/issues/:id"
+        element={
+          <ProtectedRoute>
+            <IssueDetails/>
           </ProtectedRoute>
         }
       />
