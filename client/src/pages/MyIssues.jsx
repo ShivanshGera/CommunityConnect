@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
+import IssueCard from "../components/IssueCard";
 
 function MyIssues() {
   const { token } = useAuth();
@@ -31,46 +32,17 @@ function MyIssues() {
 
   return (
     <div className="max-w-6xl mx-auto p-6">
-
       <h1 className="text-3xl font-bold mb-6">
         My Issues
       </h1>
 
       <div className="grid gap-4">
-
         {issues.map((issue) => (
-          <div
+          <IssueCard
             key={issue._id}
-            className="border p-4 rounded shadow"
-          >
-            <h2 className="text-xl font-bold">
-              {issue.title}
-            </h2>
-
-            <p>{issue.description}</p>
-
-            <p>
-              Category: {issue.category}
-            </p>
-
-            <p>
-              Status: {issue.status}
-            </p>
-
-            <p>
-              Location: {issue.location}
-            </p>
-
-            {issue.image && (
-              <img
-                src={issue.image}
-                alt={issue.title}
-                className="w-40 mt-3 rounded"
-              />
-            )}
-          </div>
+            issue={issue}
+          />
         ))}
-
       </div>
     </div>
   );
