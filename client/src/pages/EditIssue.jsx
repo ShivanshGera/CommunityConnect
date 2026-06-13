@@ -81,79 +81,190 @@ function EditIssue() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
+    <div className="min-h-screen bg-slate-950 text-white">
 
-      <h1 className="text-3xl font-bold mb-6">
-        Edit Issue
-      </h1>
+      <div className="max-w-4xl mx-auto px-6 py-10">
 
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4"
-      >
-        <input
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          className="w-full border p-3 rounded"
-        />
+        {/* Header */}
 
-        <textarea
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          className="w-full border p-3 rounded"
-          rows="5"
-        />
+        <div className="mb-10">
 
-        <select
-          name="category"
-          value={formData.category}
-          onChange={handleChange}
-          className="w-full border p-3 rounded"
-        >
-          <option value="Road Damage">
-            Road Damage
-          </option>
+          <h1 className="text-4xl font-bold">
+            Edit Issue
+          </h1>
 
-          <option value="Garbage">
-            Garbage
-          </option>
+          <p className="text-slate-400 mt-3">
+            Update the issue details before it is processed.
+          </p>
 
-          <option value="Street Light">
-            Street Light
-          </option>
+        </div>
 
-          <option value="Water Leakage">
-            Water Leakage
-          </option>
+        {/* Form Card */}
 
-          <option value="Traffic Issue">
-            Traffic Issue
-          </option>
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8">
 
-          <option value="Other">
-            Other
-          </option>
-        </select>
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-6"
+          >
 
-        <input
-          type="text"
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          className="w-full border p-3 rounded"
-        />
+            {/* Title */}
 
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-6 py-3 rounded"
-        >
-          Update Issue
-        </button>
+            <div>
 
-      </form>
+              <label className="block text-sm text-slate-400 mb-2">
+                Issue Title
+              </label>
+
+              <input
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                className="
+                w-full
+                bg-slate-950
+                border
+                border-slate-800
+                rounded-xl
+                p-4
+                focus:outline-none
+                focus:border-indigo-500
+              "
+              />
+
+            </div>
+
+            {/* Description */}
+
+            <div>
+
+              <label className="block text-sm text-slate-400 mb-2">
+                Description
+              </label>
+
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                rows="5"
+                className="
+                w-full
+                bg-slate-950
+                border
+                border-slate-800
+                rounded-xl
+                p-4
+                focus:outline-none
+                focus:border-indigo-500
+              "
+              />
+
+            </div>
+
+            {/* Category */}
+
+            <div>
+
+              <label className="block text-sm text-slate-400 mb-2">
+                Category
+              </label>
+
+              <select
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                className="
+                w-full
+                bg-slate-950
+                border
+                border-slate-800
+                rounded-xl
+                p-4
+                focus:outline-none
+                focus:border-indigo-500
+              "
+              >
+                <option value="Road Damage">
+                  Road Damage
+                </option>
+
+                <option value="Garbage">
+                  Garbage
+                </option>
+
+                <option value="Street Light">
+                  Street Light
+                </option>
+
+                <option value="Water Leakage">
+                  Water Leakage
+                </option>
+
+                <option value="Traffic Issue">
+                  Traffic Issue
+                </option>
+
+                <option value="Other">
+                  Other
+                </option>
+
+              </select>
+
+            </div>
+
+            {/* Location */}
+
+            <div>
+
+              <label className="block text-sm text-slate-400 mb-2">
+                Location
+              </label>
+
+              <input
+                type="text"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                className="
+                w-full
+                bg-slate-950
+                border
+                border-slate-800
+                rounded-xl
+                p-4
+                focus:outline-none
+                focus:border-indigo-500
+              "
+              />
+
+            </div>
+
+            {/* Submit */}
+
+            <button
+              type="submit"
+              className="
+              w-full
+              bg-gradient-to-r
+              from-indigo-600
+              to-purple-600
+              hover:from-indigo-700
+              hover:to-purple-700
+              rounded-xl
+              py-4
+              font-semibold
+              transition
+            "
+            >
+              Update Issue
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
 
     </div>
   );
