@@ -1,6 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
+import {
+  FaHome,
+  FaClipboardList,
+  FaExclamationCircle,
+  FaChartBar,
+  FaSignOutAlt,
+} from "react-icons/fa";
+
 function Navbar() {
   const { user, logout } = useAuth();
 
@@ -12,69 +20,110 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-slate-900 text-white px-6 py-4">
-      <div className="flex justify-between items-center">
+    <nav className="sticky top-0 z-50 bg-slate-950 border-b border-slate-800 backdrop-blur-sm">
 
-        <Link
-          to="/"
-          className="text-2xl font-bold"
-        >
-          CommunityConnect
-        </Link>
+      <div className="max-w-7xl mx-auto px-6">
 
-        <div className="flex gap-4 items-center">
+        <div className="flex justify-between items-center h-16">
 
-          {!user ? (
-            <>
-              <Link to="/login">
-                Login
-              </Link>
+          {/* Logo */}
 
-              <Link to="/signup">
-                Signup
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link to="/dashboard">
-                Dashboard
-              </Link>
+          <Link
+            to="/"
+            className="text-2xl font-bold text-white tracking-tight"
+          >
+            Community
+            <span className="text-indigo-500">
+              Connect
+            </span>
+          </Link>
 
-              {user?.role === "citizen" && (
-                <>
-                  <Link to="/report-issue">
-                    Report Issue
-                  </Link>
+          {/* Navigation */}
 
-                  <Link to="/my-issues">
-                    My Issues
-                  </Link>
-                </>
-              )}
+          <div className="flex items-center gap-3">
 
-              {user?.role === "admin" && (
-                <>
-                  <Link to="/admin-dashboard">
-                    Admin Dashboard
-                  </Link>
+            {!user ? (
+              <>
+                <Link
+                  to="/login"
+                  className="text-slate-300 hover:text-white transition px-3 py-2"
+                >
+                  Login
+                </Link>
 
-                  <Link to="/all-issues">
-                    All Issues
-                  </Link>
-                </>
-              )}
+                <Link
+                  to="/signup"
+                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition"
+                >
+                  Sign Up
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/dashboard"
+                  className="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800 px-3 py-2 rounded-lg transition"
+                >
+                  <FaHome />
+                  Dashboard
+                </Link>
 
-              <button
-                onClick={handleLogout}
-                className="bg-red-500 px-3 py-1 rounded"
-              >
-                Logout
-              </button>
-            </>
-          )}
+                {user?.role === "citizen" && (
+                  <>
+                    <Link
+                      to="/report-issue"
+                      className="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800 px-3 py-2 rounded-lg transition"
+                    >
+                      <FaExclamationCircle />
+                      Report Issue
+                    </Link>
+
+                    <Link
+                      to="/my-issues"
+                      className="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800 px-3 py-2 rounded-lg transition"
+                    >
+                      <FaClipboardList />
+                      My Issues
+                    </Link>
+                  </>
+                )}
+
+                {user?.role === "admin" && (
+                  <>
+                    <Link
+                      to="/admin-dashboard"
+                      className="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800 px-3 py-2 rounded-lg transition"
+                    >
+                      <FaChartBar />
+                      Admin Dashboard
+                    </Link>
+
+                    <Link
+                      to="/all-issues"
+                      className="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800 px-3 py-2 rounded-lg transition"
+                    >
+                      <FaClipboardList />
+                      All Issues
+                    </Link>
+                  </>
+                )}
+
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition"
+                >
+                  <FaSignOutAlt />
+                  Logout
+                </button>
+              </>
+            )}
+
+          </div>
 
         </div>
+
       </div>
+
     </nav>
   );
 }
