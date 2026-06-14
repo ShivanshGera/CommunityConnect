@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
@@ -35,6 +36,8 @@ function Login() {
         response.data.user
       );
 
+      toast.success("Login successful");
+
       if (response.data.user.role === "admin") {
         navigate("/admin-dashboard");
       } else {
@@ -42,7 +45,7 @@ function Login() {
       }
 
     } catch (error) {
-      alert(
+      toast.error(
         error.response?.data?.message ||
         "Login failed"
       );

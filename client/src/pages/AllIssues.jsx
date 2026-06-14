@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
@@ -57,12 +58,12 @@ function AllIssues() {
         }
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       fetchIssues();
 
     } catch (error) {
-      alert(
+      toast.error(
         error.response?.data?.message ||
         "Failed to update status"
       );
@@ -89,12 +90,12 @@ function AllIssues() {
         }
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       fetchIssues();
 
     } catch (error) {
-      alert(
+      toast.error(
         error.response?.data?.message ||
         "Failed to delete issue"
       );

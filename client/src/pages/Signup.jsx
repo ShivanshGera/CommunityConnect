@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import api from "../api/axios";
 
@@ -28,12 +29,12 @@ function Signup() {
         formData
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       navigate("/login");
 
     } catch (error) {
-      alert(
+      toast.error(
         error.response?.data?.message ||
         "Signup failed"
       );

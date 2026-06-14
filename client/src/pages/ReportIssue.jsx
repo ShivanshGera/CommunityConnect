@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
+import toast from "react-hot-toast";
 
 function ReportIssue() {
   const { token } = useAuth();
@@ -46,7 +47,7 @@ function ReportIssue() {
         }
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       setFormData({
         title: "",
@@ -58,7 +59,7 @@ function ReportIssue() {
       setImage(null);
 
     } catch (error) {
-      alert(
+      toast.error(
         error.response?.data?.message ||
         "Failed to create issue"
       );

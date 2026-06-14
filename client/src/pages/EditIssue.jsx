@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
@@ -68,12 +69,12 @@ function EditIssue() {
         }
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       navigate(`/issues/${id}`);
 
     } catch (error) {
-      alert(
+      toast.error(
         error.response?.data?.message ||
         "Failed to update issue"
       );

@@ -8,6 +8,7 @@ import {
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
 import StatusBadge from "../components/StatusBadge";
+import toast from "react-hot-toast";
 
 function IssueDetails() {
   const { id } = useParams();
@@ -57,12 +58,12 @@ function IssueDetails() {
         }
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       navigate("/my-issues");
 
     } catch (error) {
-      alert(
+      toast.error(
         error.response?.data?.message ||
         "Failed to delete issue"
       );
