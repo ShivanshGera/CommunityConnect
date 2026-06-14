@@ -102,181 +102,288 @@ function AllIssues() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="min-h-screen bg-slate-950 text-white">
 
-      <h1 className="text-4xl font-bold mb-6">
-        All Issues
-      </h1>
+      <div className="max-w-7xl mx-auto px-6 py-10">
 
-      <div className="grid md:grid-cols-3 gap-4 mb-6">
+        {/* Header */}
 
-        <input
-          type="text"
-          placeholder="Search Title"
-          value={search}
-          onChange={(e) =>
-            setSearch(e.target.value)
-          }
-          className="border p-3 rounded"
-        />
+        <h1 className="text-4xl font-bold">
+          All Issues
+        </h1>
 
-        <select
-          value={status}
-          onChange={(e) =>
-            setStatus(e.target.value)
-          }
-          className="border p-3 rounded"
-        >
-          <option value="">
-            All Status
-          </option>
+        <p className="text-slate-400 mt-3 mb-8">
+          Manage, monitor and update all
+          reported community issues.
+        </p>
 
-          <option value="Pending">
-            Pending
-          </option>
+        {/* Filters */}
 
-          <option value="In Progress">
-            In Progress
-          </option>
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-8">
 
-          <option value="Resolved">
-            Resolved
-          </option>
-        </select>
+          <div className="grid md:grid-cols-3 gap-4">
 
-        <select
-          value={category}
-          onChange={(e) =>
-            setCategory(e.target.value)
-          }
-          className="border p-3 rounded"
-        >
-          <option value="">
-            All Categories
-          </option>
+            <input
+              type="text"
+              placeholder="Search issue title..."
+              value={search}
+              onChange={(e) =>
+                setSearch(e.target.value)
+              }
+              className="
+              bg-slate-950
+              border
+              border-slate-800
+              rounded-xl
+              p-3
+              focus:outline-none
+              focus:border-indigo-500
+            "
+            />
 
-          <option value="Road Damage">
-            Road Damage
-          </option>
+            <select
+              value={status}
+              onChange={(e) =>
+                setStatus(e.target.value)
+              }
+              className="
+              bg-slate-950
+              border
+              border-slate-800
+              rounded-xl
+              p-3
+              focus:outline-none
+              focus:border-indigo-500
+            "
+            >
+              <option value="">
+                All Status
+              </option>
 
-          <option value="Garbage">
-            Garbage
-          </option>
+              <option value="Pending">
+                Pending
+              </option>
 
-          <option value="Street Light">
-            Street Light
-          </option>
+              <option value="In Progress">
+                In Progress
+              </option>
 
-          <option value="Water Leakage">
-            Water Leakage
-          </option>
+              <option value="Resolved">
+                Resolved
+              </option>
 
-          <option value="Traffic Issue">
-            Traffic Issue
-          </option>
+            </select>
 
-          <option value="Other">
-            Other
-          </option>
-        </select>
+            <select
+              value={category}
+              onChange={(e) =>
+                setCategory(e.target.value)
+              }
+              className="
+              bg-slate-950
+              border
+              border-slate-800
+              rounded-xl
+              p-3
+              focus:outline-none
+              focus:border-indigo-500
+            "
+            >
+              <option value="">
+                All Categories
+              </option>
 
-      </div>
+              <option value="Road Damage">
+                Road Damage
+              </option>
 
-      <button
-        onClick={fetchIssues}
-        className="bg-blue-600 text-white px-6 py-2 rounded mb-6"
-      >
-        Apply Filters
-      </button>
+              <option value="Garbage">
+                Garbage
+              </option>
 
-      <div className="grid gap-4">
+              <option value="Street Light">
+                Street Light
+              </option>
 
-        {issues.map((issue) => (
-          <div
-            key={issue._id}
-            className="border p-4 rounded shadow"
-          >
-            <h2 className="text-xl font-bold">
-              {issue.title}
-            </h2>
+              <option value="Water Leakage">
+                Water Leakage
+              </option>
 
-            <p className="mt-2">
-              {issue.description}
-            </p>
+              <option value="Traffic Issue">
+                Traffic Issue
+              </option>
 
-            <p className="mt-2">
-              <strong>Category:</strong>{" "}
-              {issue.category}
-            </p>
+              <option value="Other">
+                Other
+              </option>
 
-            <p>
-              <strong>Location:</strong>{" "}
-              {issue.location}
-            </p>
-
-            <p>
-              <strong>Reported By:</strong>{" "}
-              {issue.reportedBy?.name}
-            </p>
-
-            <p>
-              <strong>Email:</strong>{" "}
-              {issue.reportedBy?.email}
-            </p>
-
-            <div className="mt-2">
-              <StatusBadge
-                status={issue.status}
-              />
-            </div>
-
-            <div className="mt-4 flex gap-3 items-center">
-
-              <select
-                defaultValue={issue.status}
-                onChange={(e) =>
-                  updateStatus(
-                    issue._id,
-                    e.target.value
-                  )
-                }
-                className="border p-2 rounded"
-              >
-                <option value="Pending">
-                  Pending
-                </option>
-
-                <option value="In Progress">
-                  In Progress
-                </option>
-
-                <option value="Resolved">
-                  Resolved
-                </option>
-
-              </select>
-
-              <button
-                onClick={() =>
-                  handleDelete(issue._id)
-                }
-                className="bg-red-600 text-white px-4 py-2 rounded"
-              >
-                Delete
-              </button>
-
-            </div>
-
-            {issue.image && (
-              <img
-                src={issue.image}
-                alt={issue.title}
-                className="w-48 rounded mt-4"
-              />
-            )}
+            </select>
 
           </div>
-        ))}
+
+          <button
+            onClick={fetchIssues}
+            className="
+            mt-5
+            bg-indigo-600
+            hover:bg-indigo-700
+            px-6
+            py-3
+            rounded-xl
+            font-medium
+            transition
+          "
+          >
+            Apply Filters
+          </button>
+
+        </div>
+
+        {/* Issues Grid */}
+
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+          {issues.map((issue) => (
+
+            <div
+              key={issue._id}
+              className="
+              bg-slate-900
+              border
+              border-slate-800
+              rounded-2xl
+              overflow-hidden
+              hover:border-indigo-500
+              hover:-translate-y-1
+              hover:shadow-xl
+              hover:shadow-indigo-500/10
+              transition-all
+            "
+            >
+
+              {issue.image && (
+                <img
+                  src={issue.image}
+                  alt={issue.title}
+                  className="w-full h-52 object-cover"
+                />
+              )}
+
+              <div className="p-6">
+
+                <div className="flex justify-between items-start mb-4">
+
+                  <h2 className="text-xl font-bold">
+                    {issue.title}
+                  </h2>
+
+                  <StatusBadge
+                    status={issue.status}
+                  />
+
+                </div>
+
+                <p className="text-slate-400 text-sm">
+                  {issue.description}
+                </p>
+
+                <div className="mt-5 space-y-2">
+
+                  <p className="text-sm">
+                    <span className="text-slate-500">
+                      Category:
+                    </span>{" "}
+                    {issue.category}
+                  </p>
+
+                  <p className="text-sm">
+                    <span className="text-slate-500">
+                      Location:
+                    </span>{" "}
+                    {issue.location}
+                  </p>
+
+                  <p className="text-sm">
+                    <span className="text-slate-500">
+                      Reported By:
+                    </span>{" "}
+                    {issue.reportedBy?.name}
+                  </p>
+
+                  <p className="text-sm">
+                    <span className="text-slate-500">
+                      Email:
+                    </span>{" "}
+                    {issue.reportedBy?.email}
+                  </p>
+
+                </div>
+
+                {/* Status Update */}
+
+                <div className="mt-6">
+
+                  <select
+                    value={issue.status}
+                    onChange={(e) =>
+                      updateStatus(
+                        issue._id,
+                        e.target.value
+                      )
+                    }
+                    className="
+                    w-full
+                    bg-slate-950
+                    border
+                    border-slate-800
+                    rounded-xl
+                    p-3
+                    focus:outline-none
+                    focus:border-indigo-500
+                  "
+                  >
+                    <option value="Pending">
+                      Pending
+                    </option>
+
+                    <option value="In Progress">
+                      In Progress
+                    </option>
+
+                    <option value="Resolved">
+                      Resolved
+                    </option>
+
+                  </select>
+
+                </div>
+
+                {/* Delete */}
+
+                <button
+                  onClick={() =>
+                    handleDelete(issue._id)
+                  }
+                  className="
+                  mt-4
+                  w-full
+                  bg-red-600
+                  hover:bg-red-700
+                  py-3
+                  rounded-xl
+                  transition
+                "
+                >
+                  Delete Issue
+                </button>
+
+              </div>
+
+            </div>
+
+          ))}
+
+        </div>
 
       </div>
 
