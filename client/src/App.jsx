@@ -16,6 +16,7 @@ import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import CitizenRoute from "./components/CitizenRoute";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -107,6 +108,7 @@ function App() {
           element={<NotFound />}
         />
       </Routes>
+      <Footer/>
     </>
   );
 }
