@@ -18,6 +18,8 @@ function IssueDetails() {
   const { token } = useAuth();
 
   const [issue, setIssue] = useState(null);
+  const [deleteLoading, setDeleteLoading] =
+    useState(false);
 
   useEffect(() => {
     fetchIssue();
@@ -49,6 +51,8 @@ function IssueDetails() {
     if (!confirmDelete) return;
 
     try {
+      setDeleteLoading(true);
+
       const response = await api.delete(
         `/issues/${id}`,
         {
@@ -63,10 +67,16 @@ function IssueDetails() {
       navigate("/my-issues");
 
     } catch (error) {
+
       toast.error(
         error.response?.data?.message ||
         "Failed to delete issue"
       );
+
+    } finally {
+
+      setDeleteLoading(false);
+
     }
   };
 
@@ -173,9 +183,12 @@ function IssueDetails() {
 
                 <button
                   onClick={handleDelete}
+                  disabled={deleteLoading}
                   className="
                   bg-red-600
                   hover:bg-red-700
+                  disabled:opacity-50
+                  disabled:cursor-not-allowed
                   px-6
                   py-3
                   rounded-xl
@@ -183,7 +196,9 @@ function IssueDetails() {
                   transition
                 "
                 >
-                  Delete Issue
+                  {deleteLoading
+                    ? "Deleting..."
+                    : "Delete Issue"}
                 </button>
 
               </div>

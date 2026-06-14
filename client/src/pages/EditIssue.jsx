@@ -12,6 +12,8 @@ function EditIssue() {
 
   const { token } = useAuth();
 
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -59,6 +61,8 @@ function EditIssue() {
     e.preventDefault();
 
     try {
+      setLoading(true);
+
       const response = await api.put(
         `/issues/${id}`,
         formData,
@@ -74,10 +78,16 @@ function EditIssue() {
       navigate(`/issues/${id}`);
 
     } catch (error) {
+
       toast.error(
         error.response?.data?.message ||
         "Failed to update issue"
       );
+
+    } finally {
+
+      setLoading(false);
+
     }
   };
 
@@ -245,6 +255,7 @@ function EditIssue() {
 
             <button
               type="submit"
+              disabled={loading}
               className="
               w-full
               bg-gradient-to-r
@@ -252,13 +263,17 @@ function EditIssue() {
               to-purple-600
               hover:from-indigo-700
               hover:to-purple-700
+              disabled:opacity-50
+              disabled:cursor-not-allowed
               rounded-xl
               py-4
               font-semibold
               transition
             "
             >
-              Update Issue
+              {loading
+                ? "Updating..."
+                : "Update Issue"}
             </button>
 
           </form>

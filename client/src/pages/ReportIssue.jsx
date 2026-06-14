@@ -6,6 +6,8 @@ import toast from "react-hot-toast";
 function ReportIssue() {
   const { token } = useAuth();
 
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -26,6 +28,8 @@ function ReportIssue() {
     e.preventDefault();
 
     try {
+      setLoading(true);
+
       const data = new FormData();
 
       data.append("title", formData.title);
@@ -59,10 +63,16 @@ function ReportIssue() {
       setImage(null);
 
     } catch (error) {
+
       toast.error(
         error.response?.data?.message ||
         "Failed to create issue"
       );
+
+    } finally {
+
+      setLoading(false);
+
     }
   };
 
@@ -275,6 +285,7 @@ function ReportIssue() {
 
             <button
               type="submit"
+              disabled={loading}
               className="
               w-full
               bg-gradient-to-r
@@ -282,13 +293,17 @@ function ReportIssue() {
               to-purple-600
               hover:from-indigo-700
               hover:to-purple-700
+              disabled:opacity-50
+              disabled:cursor-not-allowed
               rounded-xl
               py-4
               font-semibold
               transition
             "
             >
-              Submit Issue
+              {loading
+                ? "Uploading & Submitting..."
+                : "Submit Issue"}
             </button>
 
           </form>

@@ -7,6 +7,8 @@ import api from "../api/axios";
 function Signup() {
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,6 +26,8 @@ function Signup() {
     e.preventDefault();
 
     try {
+      setLoading(true);
+
       const response = await api.post(
         "/auth/signup",
         formData
@@ -34,10 +38,16 @@ function Signup() {
       navigate("/login");
 
     } catch (error) {
+
       toast.error(
         error.response?.data?.message ||
         "Signup failed"
       );
+
+    } finally {
+
+      setLoading(false);
+
     }
   };
 
@@ -132,9 +142,12 @@ function Signup() {
 
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg font-semibold transition"
+              disabled={loading}
+              className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white p-3 rounded-lg font-semibold transition"
             >
-              Create Account
+              {loading
+                ? "Creating Account..."
+                : "Create Account"}
             </button>
 
           </form>

@@ -7,6 +7,7 @@ function MyIssues() {
   const { token } = useAuth();
 
   const [issues, setIssues] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchIssues();
@@ -14,6 +15,8 @@ function MyIssues() {
 
   const fetchIssues = async () => {
     try {
+      setLoading(true);
+
       const response = await api.get(
         "/issues/my",
         {
@@ -26,9 +29,33 @@ function MyIssues() {
       setIssues(response.data.issues);
 
     } catch (error) {
+
       console.log(error);
+
+    } finally {
+
+      setLoading(false);
+
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center">
+
+        <div className="text-center">
+
+          <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+
+          <p className="mt-4 text-slate-400 text-lg">
+            Loading Issues...
+          </p>
+
+        </div>
+
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">

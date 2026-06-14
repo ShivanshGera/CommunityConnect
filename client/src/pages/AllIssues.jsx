@@ -14,12 +14,20 @@ function AllIssues() {
   const [status, setStatus] = useState("");
   const [category, setCategory] = useState("");
 
+  const [loading, setLoading] = useState(false);
+  const [statusLoading, setStatusLoading] =
+    useState(null);
+  const [deleteLoading, setDeleteLoading] =
+    useState(null);
+
   useEffect(() => {
     fetchIssues();
   }, []);
 
   const fetchIssues = async () => {
     try {
+      setLoading(true);
+
       const response = await api.get(
         "/admin/issues",
         {
@@ -37,7 +45,13 @@ function AllIssues() {
       setIssues(response.data.issues);
 
     } catch (error) {
+
       console.log(error);
+
+    } finally {
+
+      setLoading(false);
+
     }
   };
 
@@ -46,6 +60,8 @@ function AllIssues() {
     newStatus
   ) => {
     try {
+      setStatusLoading(issueId);
+
       const response = await api.patch(
         `/admin/issues/${issueId}/status`,
         {
@@ -63,10 +79,16 @@ function AllIssues() {
       fetchIssues();
 
     } catch (error) {
+
       toast.error(
         error.response?.data?.message ||
         "Failed to update status"
       );
+
+    } finally {
+
+      setStatusLoading(null);
+
     }
   };
 
@@ -81,6 +103,8 @@ function AllIssues() {
     if (!confirmDelete) return;
 
     try {
+      setDeleteLoading(issueId);
+
       const response = await api.delete(
         `/admin/issues/${issueId}`,
         {
@@ -95,10 +119,16 @@ function AllIssues() {
       fetchIssues();
 
     } catch (error) {
+
       toast.error(
         error.response?.data?.message ||
         "Failed to delete issue"
       );
+
+    } finally {
+
+      setDeleteLoading(null);
+
     }
   };
 
@@ -106,8 +136,6 @@ function AllIssues() {
     <div className="min-h-screen bg-slate-950 text-white">
 
       <div className="max-w-7xl mx-auto px-6 py-10">
-
-        {/* Header */}
 
         <h1 className="text-4xl font-bold">
           All Issues
@@ -224,10 +252,13 @@ function AllIssues() {
 
           <button
             onClick={fetchIssues}
+            disabled={loading}
             className="
             mt-5
             bg-indigo-600
             hover:bg-indigo-700
+            disabled:opacity-50
+            disabled:cursor-not-allowed
             px-6
             py-3
             rounded-xl
@@ -235,7 +266,9 @@ function AllIssues() {
             transition
           "
           >
-            Apply Filters
+            {loading
+              ? "Loading..."
+              : "Apply Filters"}
           </button>
 
         </div>
@@ -320,12 +353,13 @@ function AllIssues() {
 
                 </div>
 
-                {/* Status Update */}
-
                 <div className="mt-6">
 
                   <select
                     value={issue.status}
+                    disabled={
+                      statusLoading === issue._id
+                    }
                     onChange={(e) =>
                       updateStatus(
                         issue._id,
@@ -341,6 +375,7 @@ function AllIssues() {
                     p-3
                     focus:outline-none
                     focus:border-indigo-500
+                    disabled:opacity-50
                   "
                   >
                     <option value="Pending">
@@ -359,23 +394,28 @@ function AllIssues() {
 
                 </div>
 
-                {/* Delete */}
-
                 <button
                   onClick={() =>
                     handleDelete(issue._id)
+                  }
+                  disabled={
+                    deleteLoading === issue._id
                   }
                   className="
                   mt-4
                   w-full
                   bg-red-600
                   hover:bg-red-700
+                  disabled:opacity-50
+                  disabled:cursor-not-allowed
                   py-3
                   rounded-xl
                   transition
                 "
                 >
-                  Delete Issue
+                  {deleteLoading === issue._id
+                    ? "Deleting..."
+                    : "Delete Issue"}
                 </button>
 
               </div>

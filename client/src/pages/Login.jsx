@@ -10,6 +10,8 @@ function Login() {
 
   const { login } = useAuth();
 
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,6 +28,8 @@ function Login() {
     e.preventDefault();
 
     try {
+      setLoading(true);
+
       const response = await api.post(
         "/auth/login",
         formData
@@ -45,10 +49,16 @@ function Login() {
       }
 
     } catch (error) {
+
       toast.error(
         error.response?.data?.message ||
         "Login failed"
       );
+
+    } finally {
+
+      setLoading(false);
+
     }
   };
 
@@ -128,9 +138,12 @@ function Login() {
 
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg font-semibold transition"
+              disabled={loading}
+              className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white p-3 rounded-lg font-semibold transition"
             >
-              Login
+              {loading
+                ? "Logging in..."
+                : "Login"}
             </button>
 
           </form>
