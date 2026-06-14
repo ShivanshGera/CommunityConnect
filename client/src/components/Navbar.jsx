@@ -60,16 +60,19 @@ function Navbar() {
               </>
             ) : (
               <>
-                <Link
-                  to="/dashboard"
-                  className="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800 px-3 py-2 rounded-lg transition"
-                >
-                  <FaHome />
-                  Dashboard
-                </Link>
+
+                {/* Citizen Navigation */}
 
                 {user?.role === "citizen" && (
                   <>
+                    <Link
+                      to="/dashboard"
+                      className="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800 px-3 py-2 rounded-lg transition"
+                    >
+                      <FaHome />
+                      Dashboard
+                    </Link>
+
                     <Link
                       to="/report-issue"
                       className="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800 px-3 py-2 rounded-lg transition"
@@ -87,6 +90,8 @@ function Navbar() {
                     </Link>
                   </>
                 )}
+
+                {/* Admin Navigation */}
 
                 {user?.role === "admin" && (
                   <>
@@ -115,6 +120,7 @@ function Navbar() {
                   <FaSignOutAlt />
                   Logout
                 </button>
+
               </>
             )}
 

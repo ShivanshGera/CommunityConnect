@@ -35,7 +35,11 @@ function Login() {
         response.data.user
       );
 
-      navigate("/dashboard");
+      if (response.data.user.role === "admin") {
+        navigate("/admin-dashboard");
+      } else {
+        navigate("/dashboard");
+      }
 
     } catch (error) {
       alert(
